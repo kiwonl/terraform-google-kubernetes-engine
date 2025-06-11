@@ -47,7 +47,7 @@ module "gke" {
   create_service_account      = false
   # service_account           = var.compute_engine_service_account
   default_max_pods_per_node   = 20
-  #remove_default_node_pool   = true
+  remove_default_node_pool   = true
   gateway_api_channel         = "CHANNEL_STANDARD"    # GatewayAPI
   dns_cache                   = true                # NodeLocal DNSCache 
   datapath_provider           = "ADVANCED_DATAPATH"   # Dataplane V2
