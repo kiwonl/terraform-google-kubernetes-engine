@@ -36,22 +36,22 @@ module "gke" {
   source  = "terraform-google-modules/kubernetes-engine/google"
   version = "~> 36.0"
 
-  project_id                = var.project_id
-  name                      = "${local.cluster_type}-cluster"
-  regional                  = true
-  region                    = var.region
-  network                   = module.gcp-network.network_name
-  subnetwork                = local.subnet_names[index(module.gcp-network.subnets_names, local.subnet_name)]
-  ip_range_pods             = local.pods_range_name
-  ip_range_services         = local.svc_range_name
-  create_service_account    = false
+  project_id                  = var.project_id
+  name                        = "${local.cluster_type}-cluster"
+  regional                    = true
+  region                      = var.region
+  network                     = module.gcp-network.network_name
+  subnetwork                  = local.subnet_names[index(module.gcp-network.subnets_names, local.subnet_name)]
+  ip_range_pods               = local.pods_range_name
+  ip_range_services           = local.svc_range_name
+  create_service_account      = false
   # service_account           = var.compute_engine_service_account
-  default_max_pods_per_node = 20
-  #remove_default_node_pool = true
-  gateway_api_channel	      = CHANNEL_STANDARD    # GatewayAPI
-  dns_cache                 = true                # NodeLocal DNSCache 
-  datapath_provider         = ADVANCED_DATAPATH   # Dataplane V2
-  enable_gcfs               = true                # image streming
+  default_max_pods_per_node   = 20
+  #remove_default_node_pool   = true
+  gateway_api_channel	        = "CHANNEL_STANDARD"    # GatewayAPI
+  dns_cache                   = true                # NodeLocal DNSCache 
+  datapath_provider           = "ADVANCED_DATAPATH"   # Dataplane V2
+  enable_gcfs                 = true                # image streming
 
   node_pools = [
     {
