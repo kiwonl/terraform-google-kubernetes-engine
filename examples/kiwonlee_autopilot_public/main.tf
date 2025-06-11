@@ -42,7 +42,7 @@ module "gke" {
   network                         = module.gcp-network.network_name
   subnetwork                      = local.subnet_names[index(module.gcp-network.subnets_names, local.subnet_name)]
   ip_range_pods                   = local.pods_range_name
+  ip_range_services               = local.svc_range_name
   release_channel                 = "REGULAR"
   network_tags                    = [local.cluster_type]
-  control_plane_endpoints_config  = dns_endpoint_config
 }
