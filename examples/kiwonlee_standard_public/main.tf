@@ -47,15 +47,22 @@ module "gke" {
   create_service_account    = false
   # service_account           = var.compute_engine_service_account
   default_max_pods_per_node = 20
-  remove_default_node_pool  = true
-  gateway_api_config        = CHANNEL_STANDARD
+  #remove_default_node_pool  = true
+  gateway_api_config        = CHANNEL_STANDARD    # GatewayAPI
+  dns_cache                 = true                # NodeLocal DNSCache 
+  datapath_provider         = ADVANCED_DATAPATH   # Dataplane V2
+  enable_gcfs               = true                # image streming
 
-  cluster_autoscaling = {
-    enabled             = true
-    auto_repair         = true
-    auto_upgrade        = true
-    strategy            = "SURGE"
-    max_surge           = 1
-    max_unavailable     = 0
-  }
+  node_pools = [
+    {
+      name                = "nodepool-01"
+      machine_type        = "e2-medium"
+      spot                = false
+      min_count           = 0
+      max_count           = 3
+      initial_node_count  = 1
+      auto_repair         = true
+      auto_upgrade        = true
+    }
+  ]
 }
