@@ -46,7 +46,7 @@ module "gke" {
   ip_range_pods             = local.pods_range_name
   ip_range_services         = local.svc_range_name
   create_service_account    = false
-  service_account           = var.compute_engine_service_account
+  # service_account           = var.compute_engine_service_account
   default_max_pods_per_node = 20
   remove_default_node_pool  = true
   deletion_protection       = false
