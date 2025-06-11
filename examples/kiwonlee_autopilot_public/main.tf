@@ -46,4 +46,5 @@ module "gke" {
   ip_range_services               = local.svc_range_name
   release_channel                 = "REGULAR"
   network_tags                    = [local.cluster_type]
+  hpa_profile                     = "PERFORMANCE" 
 }
