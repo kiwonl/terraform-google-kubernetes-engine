@@ -15,14 +15,13 @@
  */
 
 locals {
-  cluster_type           = "kiwonlee-stadnard-cluster"
+  cluster_type           = "kiwonlee-stadnard-public"
   network_name           = "kiwonlee-stadnard-public-network"
   subnet_name            = "kiwonlee-stadnard-public-subnet"
   master_auth_subnetwork = "kiwonlee-stadnard-public-master-subnet"
   pods_range_name        = "ip-range-pods-kiwonlee-stadnard-public"
   svc_range_name         = "ip-range-svc-kiwonlee-stadnard-public"
   subnet_names           = [for subnet_self_link in module.gcp-network.subnets_self_links : split("/", subnet_self_link)[length(split("/", subnet_self_link)) - 1]]
-
 }
 
 data "google_client_config" "default" {}
@@ -49,26 +48,10 @@ module "gke" {
   # service_account           = var.compute_engine_service_account
   default_max_pods_per_node = 20
   remove_default_node_pool  = true
-  deletion_protection       = false
-
-  #add_cluster_firewall_rules = true
-  #firewall_inbound_ports     = ["8443", "9443", "15017"]
-
-  # Just an example
-  #network_tags = ["egress-internet"]
+  gateway_api_config        = CHANNEL_STANDARD
 
   cluster_autoscaling = {
     enabled             = true
-    autoscaling_profile = "OPTIMIZE_UTILIZATION"
-    min_cpu_platform    = "Intel Skylake"
-    min_cpu_cores       = 4
-    max_cpu_cores       = 86
-    min_memory_gb       = 16
-    max_memory_gb       = 256
-    disk_size           = 100
-    disk_type           = "pd-standard"
-    image_type          = "COS_CONTAINERD"
-    gpu_resources       = []
     auto_repair         = true
     auto_upgrade        = true
     strategy            = "SURGE"
