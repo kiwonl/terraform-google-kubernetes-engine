@@ -20,6 +20,7 @@ locals {
   subnet_name            = "kiwonlee-autopilot-public-subnet"
   master_auth_subnetwork = "kiwonlee-autopilot-public-master-subnet"
   pods_range_name        = "ip-range-pods-kiwonlee-autopilot-public"
+  svc_range_name         = "ip-range-svc-kiwonlee-autopilot-public"
   subnet_names           = [for subnet_self_link in module.gcp-network.subnets_self_links : split("/", subnet_self_link)[length(split("/", subnet_self_link)) - 1]]
 }
 
